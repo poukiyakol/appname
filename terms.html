@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms of Service — FeedRelay</title>
+  <meta name="description" content="Terms of Service for FeedRelay, an internal social media scheduling and automated video distribution engine." />
+  <meta property="og:title" content="Terms of Service — FeedRelay" />
+  <meta property="og:description" content="Terms of Service for FeedRelay, an internal social media scheduling and automated video distribution engine." />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary" />
+
+  <style>
+    /* FeedRelay Design System - Modern Dark Mode */
+    :root {
+      --bg-dark: #0A0F1D;
+      --surface-dark: #111827;
+      --surface-raised: #151F33;
+      --surface-subtle: #1C2740;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --purple-primary: #7C3AED;
+      --purple-hover: #6D28D9;
+      --purple-light: #A78BFA;
+      --purple-glow: rgba(124, 58, 237, 0.15);
+      --mint-primary: #10B981;
+      --mint-light: #34D399;
+      --text-main: #FFFFFF;
+      --text-heading: #F8FAFC;
+      --text-muted: #94A3B8;
+      --text-dim: #64748B;
+      --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Plus Jakarta Sans", Helvetica, Arial, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-muted);
+      font-family: var(--font-stack);
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Top Bar Header */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(10, 15, 29, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .nav-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      height: 72px;
+      max-width: 1160px;
+    }
+
+    .brand-zone {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    .logo-glyph {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--purple-primary) 0%, #4F46E5 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 16px var(--purple-glow);
+    }
+
+    .brand-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: var(--text-main);
+      white-space: nowrap;
+    }
+
+    .brand-title span {
+      color: var(--purple-light);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .nav-link {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .nav-link:hover {
+      color: var(--text-main);
+    }
+
+    .nav-back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--purple-light);
+    }
+
+    .nav-back-link:hover {
+      color: var(--text-main);
+    }
+
+    /* Content Layout */
+    .legal-content-wrap {
+      padding: 4rem 0 6rem;
+    }
+
+    .legal-header {
+      margin-bottom: 3.5rem;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 2rem;
+    }
+
+    .legal-kicker {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--purple-light);
+      margin-bottom: 0.5rem;
+    }
+
+    .legal-title {
+      font-size: clamp(2rem, 3.5vw, 2.75rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text-heading);
+      margin-bottom: 0.75rem;
+    }
+
+    .legal-meta {
+      font-size: 0.875rem;
+      color: var(--text-dim);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .meta-tag {
+      color: var(--mint-light);
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+    }
+
+    /* Legal Sections */
+    .legal-article {
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+    }
+
+    .legal-section {
+      background: var(--surface-dark);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 2.25rem;
+    }
+
+    .section-num {
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--purple-light);
+      margin-bottom: 0.35rem;
+    }
+
+    .legal-section-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-heading);
+      letter-spacing: -0.015em;
+      margin-bottom: 1.25rem;
+    }
+
+    .legal-section p {
+      margin-bottom: 1rem;
+      color: var(--text-muted);
+      font-size: 0.9625rem;
+    }
+
+    .legal-section p:last-child {
+      margin-bottom: 0;
+    }
+
+    .legal-list {
+      margin: 1rem 0 1.25rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .legal-list li {
+      color: var(--text-muted);
+      font-size: 0.9375rem;
+    }
+
+    .legal-list li strong {
+      color: var(--text-heading);
+    }
+
+    .callout-box {
+      background: var(--surface-raised);
+      border: 1px solid rgba(124, 58, 237, 0.25);
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      margin-top: 1.25rem;
+      font-size: 0.875rem;
+      color: #E2E8F0;
+    }
+
+    .callout-box strong {
+      color: var(--purple-light);
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    /* Footer */
+    .site-footer {
+      margin-top: auto;
+      border-top: 1px solid var(--border-subtle);
+      background: #080D1A;
+      padding: 3rem 0;
+      font-size: 0.875rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      color: var(--text-dim);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .footer-links a:hover {
+      color: var(--text-main);
+    }
+
+    @media (max-width: 640px) {
+      .footer-inner {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+      }
+      .legal-section {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand-zone" aria-label="FeedRelay Home">
+        <div class="logo-glyph">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="16 3 21 3 21 8"></polyline>
+            <line x1="4" y1="20" x2="21" y2="3"></line>
+            <polyline points="21 16 21 21 16 21"></polyline>
+            <line x1="15" y1="15" x2="21" y2="21"></line>
+            <line x1="4" y1="4" x2="9" y2="9"></line>
+          </svg>
+        </div>
+        <span class="brand-title">Feed<span>Relay</span></span>
+      </a>
+
+      <nav aria-label="Breadcrumb Navigation">
+        <ul class="nav-links">
+          <li>
+            <a href="index.html" class="nav-back-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+              </svg>
+              Back to Overview
+            </a>
+          </li>
+          <li><a href="privacy.html" class="nav-link">Privacy Policy</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="legal-content-wrap">
+    <div class="container">
+      <header class="legal-header">
+        <p class="legal-kicker">Platform Legal &amp; Governance</p>
+        <h1 class="legal-title">Terms of Service</h1>
+        <div class="legal-meta">
+          <span>Effective Date: October 11, 2026</span>
+          <span>&middot;</span>
+          <span>Version 2.4</span>
+          <span>&middot;</span>
+          <span class="meta-tag">Status: Legally Binding Internal SLA</span>
+        </div>
+      </header>
+
+      <article class="legal-article">
+        <!-- Section 1 -->
+        <section class="legal-section">
+          <p class="section-num">SECTION 01</p>
+          <h2 class="legal-section-title">Acceptance of Terms &amp; Purpose</h2>
+          <p>
+            These Terms of Service ("Terms") govern access to and usage of <strong>FeedRelay</strong> ("the Platform," "the Service"), an internal software tool designed for multi-account short-form video publishing, automated queue management, and social platform API synchronization.
+          </p>
+          <p>
+            By authenticating with FeedRelay, provisioning OAuth credentials, or staging media within the distribution queue, you agree to comply with and be bound by these Terms. If you do not accept these Terms in full, you must not connect social accounts or submit media to the Service.
+          </p>
+        </section>
+
+        <!-- Section 2 -->
+        <section class="legal-section">
+          <p class="section-num">SECTION 02</p>
+          <h2 class="legal-section-title">Authorized Use &amp; Acceptable Use Policy</h2>
+          <p>
+            FeedRelay is built specifically for legitimate, authorized media publishing across owned and operated brand accounts. You agree not to engage in any prohibited activities, including but not limited to:
+          </p>
+          <ul class="legal-list">
+            <li><strong>Automated Spam or Bulk Flood:</strong> Staging repetitive, non-original, deceptive, or high-frequency automated content that artificially inflates volume or violates rate limits.</li>
+            <li><strong>Malicious Code &amp; Exploits:</strong> Attempting to tamper with upload pipelines, inject harmful payloads, or exploit chunked transport handlers.</li>
+            <li><strong>Circumvention of Platform Throttling:</strong> Artificially dodging or subverting rate-limiting, quota restrictions, or jitter-pacing mechanisms enforced by FeedRelay or downstream destination APIs.</li>
+            <li><strong>Infringing or Unlawful Material:</strong> Distributing content that violates third-party copyright, intellectual property, privacy rights, defamation laws, or platform community safety standards.</li>
+          </ul>
+        </section>
+
+        <!-- Section 3 -->
+        <section class="legal-section">
+          <p class="section-num">SECTION 03</p>
+          <h2 class="legal-section-title">Account Responsibility &amp; Credential Custody</h2>
+          <p>
+            Users and operational administrators are solely responsible for managing and safeguarding OAuth client credentials, refresh tokens, and internal service passwords associated with FeedRelay.
+          </p>
+          <ul class="legal-list">
+            <li><strong>Credential Confidentiality:</strong> You must maintain strict confidentiality of access keys. Sharing private signing secrets, refresh tokens, or deployment endpoints with unauthorized individuals is strictly prohibited.</li>
+            <li><strong>Authorization Scope:</strong> You represent and warrant that you hold explicit legal authority to publish media on behalf of every social account connected to the Service.</li>
+            <li><strong>Incident Notification:</strong> In the event of suspected token compromise or unauthorized system access, operators must notify the security contact immediately and initiate an instant token revocation cycle.</li>
+          </ul>
+        </section>
+
+        <!-- Section 4 -->
+        <section id="third-party" class="legal-section">
+          <p class="section-num">SECTION 04</p>
+          <h2 class="legal-section-title">Third-Party Social Platform API Compliance</h2>
+          <p>
+            FeedRelay acts exclusively as an API client connecting to external social media platforms. All video dispatch operations, authentication flows, and media publications are expressly conditioned upon continuous compliance with each platform's developer terms:
+          </p>
+          <ul class="legal-list">
+            <li>
+              <strong>TikTok API Compliance:</strong> All integrations with TikTok services are governed by the <em>TikTok Terms of Service</em>, <em>TikTok Commercial Content API Terms</em>, and <em>TikTok Developer Policies</em>. Operators must ensure video assets comply with TikTok community guidelines and content disclosure regulations (e.g., commercial music licensing and branded content toggles).
+            </li>
+            <li>
+              <strong>YouTube API Compliance:</strong> Distribution to YouTube Shorts utilizes YouTube API Services and is governed by the <em>YouTube Terms of Service</em> (<a href="https://www.youtube.com/t/terms" target="_blank" rel="noopener noreferrer" style="color: var(--purple-light); text-decoration: underline;">https://www.youtube.com/t/terms</a>) and the <em>Google Privacy Policy</em>.
+            </li>
+            <li>
+              <strong>Meta / Instagram Platform Compliance:</strong> Distribution to Instagram Reels is governed by the <em>Meta Platform Terms</em> and <em>Instagram Graph API Developer Policies</em>, including strict adherence to single-container video publishing rate ceilings.
+            </li>
+          </ul>
+
+          <div class="callout-box">
+            <strong>Platform Autonomy Disclosure:</strong>
+            Third-party platforms maintain absolute sovereignty over their respective APIs. FeedRelay cannot override platform-side content takedowns, algorithmic shadow-bans, account suspensions, quota limits, or breaking API changes implemented by third-party social networks.
+          </div>
+        </section>
+
+        <!-- Section 5 -->
+        <section class="legal-section">
+          <p class="section-num">SECTION 05</p>
+          <h2 class="legal-section-title">Intellectual Property &amp; Content Rights</h2>
+          <p>
+            <strong>Ownership Retained:</strong> You and your respective licensors retain 100% full legal title, copyright, and intellectual property ownership over all video assets, captions, thumbnails, and audio tracks processed through FeedRelay.
+          </p>
+          <p>
+            <strong>Limited Staging License:</strong> By queuing media in FeedRelay, you grant the Service a temporary, non-exclusive, royalty-free license solely to transcode, store in ephemeral buffers, chunk, and transmit the video binary to your designated social platform endpoints. FeedRelay asserts no ownership, distribution, or licensing claim over processed media.
+          </p>
+        </section>
+
+        <!-- Section 6 -->
+        <section class="legal-section">
+          <p class="section-num">SECTION 06</p>
+          <h2 class="legal-section-title">Limitation of Liability &amp; Disclaimers</h2>
+          <p>
+            FEEDRELAY IS PROVIDED ON AN "AS IS" AND "AS AVAILABLE" BASIS FOR INTERNAL OPERATIONAL AUTOMATION. TO THE MAXIMUM EXTENT PERMITTED UNDER APPLICABLE LAW, THE OPERATORS OF FEEDRELAY DISCLAIM ALL WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
+          </p>
+          <p>
+            UNDER NO CIRCUMSTANCES SHALL FEEDRELAY OR ITS MAINTAINERS BE LIABLE FOR ANY INDIRECT, SPECIAL, INCIDENTAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING LOSS OF REVENUE, LOST PROFITS, ENGAGEMENT PENALTIES, OR SOCIAL MEDIA ACCOUNT SUSPENSIONS RESULTING FROM DOWNSTREAM THIRD-PARTY API DECISIONS OR OUTAGES.
+          </p>
+        </section>
+
+        <!-- Section 7 -->
+        <section class="legal-section">
+          <p class="section-num">SECTION 07</p>
+          <h2 class="legal-section-title">Termination &amp; Token Revocation</h2>
+          <p>
+            Access to FeedRelay may be revoked or suspended immediately, without notice, if you breach these Terms or if a connected social media platform issues an API audit non-compliance warning.
+          </p>
+          <p>
+            Operators may terminate their use of FeedRelay at any time by disconnecting social channels within the settings interface or by revoking authorized app access in the respective platform security settings (TikTok Security, Google Security Settings, or Meta Business Integrations).
+          </p>
+        </section>
+
+        <!-- Section 8 -->
+        <section class="legal-section">
+          <p class="section-num">SECTION 08</p>
+          <h2 class="legal-section-title">Compliance Inquiries &amp; Contact</h2>
+          <p>
+            For questions concerning these Terms, platform audit verifications, or internal compliance guidelines, please contact our legal and infrastructure team:
+          </p>
+          <p style="font-family: var(--font-mono); color: var(--purple-light); margin-top: 0.5rem;">
+            compliance@feedrelay.internal
+          </p>
+        </section>
+      </article>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p>&copy; 2026 FeedRelay. Internal distribution tool. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="index.html">Overview</a>
+        <a href="terms.html">Terms of Service</a>
+        <a href="privacy.html">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+{
+  "name": "FeedRelay",
+  "description": "A streamlined multi-account content publishing and scheduling tool for automated social video distribution.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

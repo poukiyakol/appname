@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FeedRelay — Streamlined Multi-Account Video Distribution</title>
+  <meta name="description" content="A streamlined multi-account content publishing and scheduling tool for automated social video distribution." />
+  <meta property="og:title" content="FeedRelay — Streamlined Multi-Account Video Distribution" />
+  <meta property="og:description" content="A streamlined multi-account content publishing and scheduling tool for automated social video distribution." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <style>
+    /* FeedRelay Design System - Modern Dark Mode */
+    :root {
+      --bg-dark: #0A0F1D;
+      --surface-dark: #111827;
+      --surface-raised: #151F33;
+      --surface-subtle: #1C2740;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-focus: rgba(124, 58, 237, 0.4);
+      --purple-primary: #7C3AED;
+      --purple-hover: #6D28D9;
+      --purple-light: #A78BFA;
+      --purple-glow: rgba(124, 58, 237, 0.15);
+      --mint-primary: #10B981;
+      --mint-light: #34D399;
+      --mint-glow: rgba(16, 185, 129, 0.12);
+      --text-main: #FFFFFF;
+      --text-heading: #F8FAFC;
+      --text-muted: #94A3B8;
+      --text-dim: #64748B;
+      --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Plus Jakarta Sans", Helvetica, Arial, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-muted);
+      font-family: var(--font-stack);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Top Bar Header */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(10, 15, 29, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .nav-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      height: 72px;
+    }
+
+    .brand-zone {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    .logo-glyph {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--purple-primary) 0%, #4F46E5 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 16px var(--purple-glow);
+    }
+
+    .brand-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: var(--text-main);
+      white-space: nowrap;
+    }
+
+    .brand-title span {
+      color: var(--purple-light);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-link {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      white-space: nowrap;
+      transition: color 0.15s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--text-main);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-main);
+      background: var(--surface-raised);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+
+    .btn-secondary:hover {
+      background: var(--surface-subtle);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.625rem 1.25rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-main);
+      background: var(--purple-primary);
+      border: 1px solid transparent;
+      border-radius: 6px;
+      white-space: nowrap;
+      box-shadow: 0 2px 10px var(--purple-glow);
+      transition: all 0.15s ease;
+    }
+
+    .btn-primary:hover {
+      background: var(--purple-hover);
+      box-shadow: 0 4px 14px rgba(124, 58, 237, 0.3);
+    }
+
+    /* Hero Section */
+    .hero-section {
+      padding: 5rem 0 4rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero-badge-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.625rem;
+      padding: 0.35rem 0.85rem;
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      border-radius: 9999px;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--mint-light);
+      margin-bottom: 1.75rem;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background-color: var(--mint-primary);
+      box-shadow: 0 0 8px var(--mint-primary);
+    }
+
+    .hero-title {
+      font-size: clamp(2.25rem, 4.5vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.035em;
+      color: var(--text-heading);
+      margin-bottom: 1.25rem;
+      text-wrap: balance;
+    }
+
+    .hero-title .highlight {
+      background: linear-gradient(135deg, #FFFFFF 30%, var(--purple-light) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      max-width: 680px;
+      margin: 0 auto 2.25rem;
+      font-size: 1.125rem;
+      line-height: 1.6;
+      color: var(--text-muted);
+      text-wrap: balance;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 3.5rem;
+    }
+
+    /* Dashboard Console Mockup */
+    .preview-card {
+      background: var(--surface-dark);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+      text-align: left;
+    }
+
+    .console-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.875rem 1.25rem;
+      background: var(--surface-raised);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .console-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .terminal-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .terminal-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .console-title {
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      color: var(--text-dim);
+    }
+
+    .console-stats {
+      display: flex;
+      gap: 1.5rem;
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+    }
+
+    .stat-entry {
+      color: var(--text-muted);
+    }
+
+    .stat-val {
+      color: var(--mint-light);
+      font-weight: 600;
+    }
+
+    .console-body {
+      padding: 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .channel-card {
+      background: var(--surface-raised);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 1rem;
+    }
+
+    .channel-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.75rem;
+    }
+
+    .channel-name {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .channel-status {
+      font-size: 0.75rem;
+      color: var(--mint-light);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-family: var(--font-mono);
+    }
+
+    .channel-meta {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    /* Queue Table Preview */
+    .queue-preview {
+      border-top: 1px solid var(--border-subtle);
+      background: rgba(17, 24, 39, 0.6);
+      padding: 1.25rem 1.5rem;
+    }
+
+    .queue-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.75rem;
+    }
+
+    .queue-heading {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-dim);
+    }
+
+    .queue-counter {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .queue-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.625rem 0.75rem;
+      border-radius: 6px;
+      background: var(--surface-raised);
+      margin-bottom: 0.5rem;
+      font-size: 0.8125rem;
+    }
+
+    .queue-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .queue-title {
+      color: var(--text-main);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+    }
+
+    .queue-tag {
+      font-size: 0.6875rem;
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      background: rgba(124, 58, 237, 0.15);
+      color: var(--purple-light);
+      border: 1px solid rgba(124, 58, 237, 0.25);
+    }
+
+    .queue-time {
+      font-family: var(--font-mono);
+      color: var(--text-dim);
+      font-size: 0.75rem;
+    }
+
+    /* Feature Grid */
+    .section {
+      padding: 5rem 0;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .section-head {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto 3.5rem;
+    }
+
+    .section-kicker {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--purple-light);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text-heading);
+      letter-spacing: -0.025em;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-desc {
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .feature-card {
+      background: var(--surface-dark);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+
+    .feature-card:hover {
+      border-color: rgba(124, 58, 237, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .feature-icon-wrap {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      background: rgba(124, 58, 237, 0.12);
+      border: 1px solid rgba(124, 58, 237, 0.25);
+      color: var(--purple-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .feature-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-heading);
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.015em;
+    }
+
+    .feature-body {
+      color: var(--text-muted);
+      font-size: 0.9375rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+    }
+
+    .feature-specs {
+      list-style: none;
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .feature-spec-item {
+      font-size: 0.8125rem;
+      color: var(--text-dim);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .feature-spec-bullet {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--purple-primary);
+    }
+
+    /* Architecture Pipeline Flow */
+    .pipeline-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+      margin-top: 2rem;
+    }
+
+    .pipeline-step {
+      background: var(--surface-dark);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 1.5rem;
+      position: relative;
+    }
+
+    .step-number {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--purple-light);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .step-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-heading);
+      margin-bottom: 0.5rem;
+    }
+
+    .step-desc {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Compliance & Audit Callout */
+    .compliance-callout {
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.08) 0%, rgba(16, 185, 129, 0.05) 100%);
+      border: 1px solid rgba(124, 58, 237, 0.2);
+      border-radius: 12px;
+      padding: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      margin-top: 3.5rem;
+    }
+
+    .compliance-content h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-heading);
+      margin-bottom: 0.5rem;
+    }
+
+    .compliance-content p {
+      font-size: 0.9375rem;
+      color: var(--text-muted);
+      max-width: 620px;
+    }
+
+    .compliance-links {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    /* Footer */
+    .site-footer {
+      margin-top: auto;
+      border-top: 1px solid var(--border-subtle);
+      background: #080D1A;
+      padding: 4rem 0 2.5rem;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-brand-desc {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-top: 1rem;
+      max-width: 380px;
+      line-height: 1.6;
+    }
+
+    .footer-col-title {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-heading);
+      margin-bottom: 1rem;
+    }
+
+    .footer-nav {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.625rem;
+    }
+
+    .footer-nav a {
+      font-size: 0.875rem;
+      color: var(--text-dim);
+      transition: color 0.15s ease;
+    }
+
+    .footer-nav a:hover {
+      color: var(--text-main);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.8125rem;
+      color: var(--text-dim);
+    }
+
+    .footer-bottom-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .footer-bottom-links a:hover {
+      color: var(--text-muted);
+    }
+
+    /* Responsive Queries */
+    @media (max-width: 900px) {
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+      .pipeline-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .console-body {
+        grid-template-columns: 1fr;
+      }
+      .compliance-callout {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .footer-top {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav-links {
+        display: none;
+      }
+      .pipeline-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-cta-group {
+        flex-direction: column;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar Contract -->
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <!-- Zone 1: Brand Wordmark -->
+      <a href="index.html" class="brand-zone" aria-label="FeedRelay Home">
+        <div class="logo-glyph">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="16 3 21 3 21 8"></polyline>
+            <line x1="4" y1="20" x2="21" y2="3"></line>
+            <polyline points="21 16 21 21 16 21"></polyline>
+            <line x1="15" y1="15" x2="21" y2="21"></line>
+            <line x1="4" y1="4" x2="9" y2="9"></line>
+          </svg>
+        </div>
+        <span class="brand-title">Feed<span>Relay</span></span>
+      </a>
+
+      <!-- Zone 2: Navigation Links -->
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="#features" class="nav-link">Features</a></li>
+          <li><a href="#architecture" class="nav-link">Pipeline</a></li>
+          <li><a href="terms.html" class="nav-link">Terms</a></li>
+          <li><a href="privacy.html" class="nav-link">Privacy</a></li>
+        </ul>
+      </nav>
+
+      <!-- Zone 3: Primary Action -->
+      <div class="nav-actions">
+        <a href="#pipeline" class="btn-secondary">API Status</a>
+        <a href="terms.html" class="btn-primary">Platform Policies</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="container">
+        <!-- System Operational Badge -->
+        <div class="hero-badge-wrap" role="status" aria-live="polite">
+          <span class="status-dot"></span>
+          <span>System Operational &middot; Social APIs Synchronized</span>
+        </div>
+
+        <h1 class="hero-title">
+          Streamlined Multi-Account <span class="highlight">Video Distribution</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          An internal content publishing and scheduling engine engineered for automated short-form video delivery via direct platform APIs.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="#features" class="btn-primary">Explore Core Engine</a>
+          <a href="terms.html" class="btn-secondary">View Terms of Service</a>
+        </div>
+
+        <!-- System Console Mockup -->
+        <div class="preview-card" aria-label="Distribution Pipeline Console Preview">
+          <div class="console-header">
+            <div class="console-title-wrap">
+              <div class="terminal-dots">
+                <span class="terminal-dot"></span>
+                <span class="terminal-dot"></span>
+                <span class="terminal-dot"></span>
+              </div>
+              <span class="console-title">feedrelay-daemon --status active</span>
+            </div>
+            <div class="console-stats">
+              <span class="stat-entry">Queue: <span class="stat-val">14 In-Flight</span></span>
+              <span class="stat-entry">Relay Purity: <span class="stat-val">99.98%</span></span>
+              <span class="stat-entry">Tokens: <span class="stat-val">All Valid</span></span>
+            </div>
+          </div>
+
+          <div class="console-body">
+            <!-- Channel 1: TikTok -->
+            <div class="channel-card">
+              <div class="channel-top">
+                <span class="channel-name">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.29 0 .58.04.86.12V9.42a6.34 6.34 0 0 0-.86-.06 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V9.05a8.27 8.27 0 0 0 4.77 1.48V7.08a4.8 4.8 0 0 1-1-.39z"/>
+                  </svg>
+                  TikTok API v2
+                </span>
+                <span class="channel-status">&bull; Ready</span>
+              </div>
+              <div class="channel-meta">
+                <span>Scope: video.upload &middot; user.info</span>
+                <span>Next Slot: 14:00:00 UTC</span>
+                <span>Jitter Pacing: Enabled (120s)</span>
+              </div>
+            </div>
+
+            <!-- Channel 2: YouTube Shorts -->
+            <div class="channel-card">
+              <div class="channel-top">
+                <span class="channel-name">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                  </svg>
+                  YouTube Data API
+                </span>
+                <span class="channel-status">&bull; Ready</span>
+              </div>
+              <div class="channel-meta">
+                <span>Scope: youtube.upload</span>
+                <span>Daily Quota: 12% Consumed</span>
+                <span>Resumable: Verified</span>
+              </div>
+            </div>
+
+            <!-- Channel 3: Instagram Reels -->
+            <div class="channel-card">
+              <div class="channel-top">
+                <span class="channel-name">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                  </svg>
+                  Instagram Graph
+                </span>
+                <span class="channel-status">&bull; Ready</span>
+              </div>
+              <div class="channel-meta">
+                <span>Scope: instagram_content_publish</span>
+                <span>Container: Video Reel</span>
+                <span>Webhooks: Subscribed</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="queue-preview">
+            <div class="queue-header-row">
+              <span class="queue-heading">Upcoming Scheduled Dispatch</span>
+              <span class="queue-counter">Deterministic Pacing: Active</span>
+            </div>
+
+            <div class="queue-item">
+              <span class="queue-title">
+                <span class="queue-tag">TikTok</span>
+                release_brief_q4_v2.mp4
+              </span>
+              <span class="queue-time">Scheduled: Today 14:00 UTC &middot; Chunking Prepared</span>
+            </div>
+
+            <div class="queue-item">
+              <span class="queue-title">
+                <span class="queue-tag">YouTube</span>
+                dev_update_october_recap.mp4
+              </span>
+              <span class="queue-time">Scheduled: Today 16:30 UTC &middot; Metadata Ingested</span>
+            </div>
+
+            <div class="queue-item">
+              <span class="queue-title">
+                <span class="queue-tag">Instagram</span>
+                product_engineering_spotlight.mp4
+              </span>
+              <span class="queue-time">Scheduled: Today 19:15 UTC &middot; Container Initialized</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Feature Grid Section -->
+    <section id="features" class="section">
+      <div class="container">
+        <div class="section-head">
+          <p class="section-kicker">Core System Architecture</p>
+          <h2 class="section-title">Engineered for Automated Social Distribution</h2>
+          <p class="section-desc">
+            Built from first principles to provide robust API orchestration, strict audit compliance, and bulletproof video publishing.
+          </p>
+        </div>
+
+        <div class="feature-grid">
+          <!-- Feature 1 -->
+          <article class="feature-card">
+            <div class="feature-icon-wrap" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+            </div>
+            <h3 class="feature-title">Automated Queueing</h3>
+            <p class="feature-body">
+              Deterministic dispatch engine featuring intelligent staggered intervals, time-zone alignment, and jitter mitigation to completely eliminate burst throttling across target social platforms.
+            </p>
+            <ul class="feature-specs">
+              <li class="feature-spec-item">
+                <span class="feature-spec-bullet"></span>
+                <span>Automatic exponential backoff on HTTP 429/5xx</span>
+              </li>
+              <li class="feature-spec-item">
+                <span class="feature-spec-bullet"></span>
+                <span>Time-slot reservation with cross-account stagger</span>
+              </li>
+              <li class="feature-spec-item">
+                <span class="feature-spec-bullet"></span>
+                <span>Isolated failure domain per scheduled asset</span>
+              </li>
+            </ul>
+          </article>
+
+          <!-- Feature 2 -->
+          <article class="feature-card">
+            <div class="feature-icon-wrap" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+            </div>
+            <h3 class="feature-title">Multi-Account OAuth Sync</h3>
+            <p class="feature-body">
+              Centralized token lifecycle management across connected brand profiles. Handles silent refresh cycles, access scope audits, and secure local cryptographic key management.
+            </p>
+            <ul class="feature-specs">
+              <li class="feature-spec-item">
+                <span class="feature-spec-bullet"></span>
+                <span>AES-256 token encryption at rest</span>
+              </li>
+              <li class="feature-spec-item">
+                <span class="feature-spec-bullet"></span>
+                <span>Ephemeral in-memory decryption on dispatch</span>
+              </li>
+              <li class="feature-spec-item">
+                <span class="feature-spec-bullet"></span>
+                <span>Instant single-click authorization revocation</span>
+              </li>
+            </ul>
+          </article>
+
+          <!-- Feature 3 -->
+          <article class="feature-card">
+            <div class="feature-icon-wrap" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+              </svg>
+            </div>
+            <h3 class="feature-title">Zero-Friction Upload Pipeline</h3>
+            <p class="feature-body">
+              High-throughput chunked video ingestion with pre-flight codec validation. Verifies audio loudness, aspect ratio conformity, and bitrates prior to API transfer.
+            </p>
+            <ul class="feature-specs">
+              <li class="feature-spec-item">
+                <span class="feature-spec-bullet"></span>
+                <span>Resumable multipart upload handshakes</span>
+              </li>
+              <li class="feature-spec-item">
+                <span class="feature-spec-bullet"></span>
+                <span>Automatic 9:16 vertical aspect ratio audit</span>
+              </li>
+              <li class="feature-spec-item">
+                <span class="feature-spec-bullet"></span>
+                <span>Targeted webhook feedback upon platform publish</span>
+              </li>
+            </ul>
+          </article>
+        </div>
+
+        <!-- Compliance Callout -->
+        <div class="compliance-callout">
+          <div class="compliance-content">
+            <h3>Developer Platform Audit Compliance</h3>
+            <p>
+              FeedRelay strictly adheres to developer platform rules for TikTok Commercial Content APIs, YouTube API Services, and Meta Graph APIs. We retain minimal diagnostic logs and never share or monetize your private account tokens.
+            </p>
+          </div>
+          <div class="compliance-links">
+            <a href="terms.html" class="btn-secondary">Terms of Service</a>
+            <a href="privacy.html" class="btn-primary">Privacy Policy</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pipeline Architecture Section -->
+    <section id="architecture" class="section">
+      <div class="container">
+        <div class="section-head">
+          <p class="section-kicker">Lifecycle</p>
+          <h2 class="section-title">Deterministic Ingestion & Dispatch Pipeline</h2>
+          <p class="section-desc">
+            How media traverses FeedRelay from original upload to live publication.
+          </p>
+        </div>
+
+        <div class="pipeline-grid">
+          <div class="pipeline-step">
+            <p class="step-number">01 / INGEST</p>
+            <h4 class="step-title">Media Pre-Flight</h4>
+            <p class="step-desc">
+              Inspects video containers, H.264/AAC encoding, and vertical aspect ratios against platform developer specs.
+            </p>
+          </div>
+
+          <div class="pipeline-step">
+            <p class="step-number">02 / SCHEDULE</p>
+            <h4 class="step-title">Queue & Pacing</h4>
+            <p class="step-desc">
+              Allocates optimal publishing slots and calculates inter-post jitter windows to maintain platform quota safety.
+            </p>
+          </div>
+
+          <div class="pipeline-step">
+            <p class="step-number">03 / DISPATCH</p>
+            <h4 class="step-title">Direct API Sync</h4>
+            <p class="step-desc">
+              Executes authorized multipart chunk transfers using OAuth 2.0 credentials directly to destination social APIs.
+            </p>
+          </div>
+
+          <div class="pipeline-step">
+            <p class="step-number">04 / PURGE</p>
+            <h4 class="step-title">Ephemeral Cleanup</h4>
+            <p class="step-desc">
+              Confirms remote publishing via webhook and permanently wipes temporary staging binaries within 24 hours.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div>
+          <a href="index.html" class="brand-zone" aria-label="FeedRelay Home">
+            <div class="logo-glyph">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="16 3 21 3 21 8"></polyline>
+                <line x1="4" y1="20" x2="21" y2="3"></line>
+                <polyline points="21 16 21 21 16 21"></polyline>
+                <line x1="15" y1="15" x2="21" y2="21"></line>
+                <line x1="4" y1="4" x2="9" y2="9"></line>
+              </svg>
+            </div>
+            <span class="brand-title">Feed<span>Relay</span></span>
+          </a>
+          <p class="footer-brand-desc">
+            A streamlined multi-account content publishing and scheduling tool for automated social video distribution.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Navigation</h4>
+          <ul class="footer-nav">
+            <li><a href="index.html">Overview</a></li>
+            <li><a href="#features">Capabilities</a></li>
+            <li><a href="#architecture">Pipeline Flow</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Legal & Compliance</h4>
+          <ul class="footer-nav">
+            <li><a href="terms.html">Terms of Service</a></li>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="privacy.html#tokens">Token Encryption Policy</a></li>
+            <li><a href="terms.html#third-party">API Audit Standards</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 FeedRelay. Internal distribution tool. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="terms.html">Terms of Service</a>
+          <a href="privacy.html">Privacy Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

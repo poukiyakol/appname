@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — FeedRelay</title>
+  <meta name="description" content="Privacy Policy for FeedRelay, detailing OAuth token encryption, minimal data retention, and third-party social API compliance." />
+  <meta property="og:title" content="Privacy Policy — FeedRelay" />
+  <meta property="og:description" content="Privacy Policy for FeedRelay, detailing OAuth token encryption, minimal data retention, and third-party social API compliance." />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary" />
+
+  <style>
+    /* FeedRelay Design System - Modern Dark Mode */
+    :root {
+      --bg-dark: #0A0F1D;
+      --surface-dark: #111827;
+      --surface-raised: #151F33;
+      --surface-subtle: #1C2740;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --purple-primary: #7C3AED;
+      --purple-hover: #6D28D9;
+      --purple-light: #A78BFA;
+      --purple-glow: rgba(124, 58, 237, 0.15);
+      --mint-primary: #10B981;
+      --mint-light: #34D399;
+      --text-main: #FFFFFF;
+      --text-heading: #F8FAFC;
+      --text-muted: #94A3B8;
+      --text-dim: #64748B;
+      --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Plus Jakarta Sans", Helvetica, Arial, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-muted);
+      font-family: var(--font-stack);
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Top Bar Header */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(10, 15, 29, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .nav-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      height: 72px;
+      max-width: 1160px;
+    }
+
+    .brand-zone {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    .logo-glyph {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--purple-primary) 0%, #4F46E5 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 16px var(--purple-glow);
+    }
+
+    .brand-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: var(--text-main);
+      white-space: nowrap;
+    }
+
+    .brand-title span {
+      color: var(--purple-light);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .nav-link {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .nav-link:hover {
+      color: var(--text-main);
+    }
+
+    .nav-back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--purple-light);
+    }
+
+    .nav-back-link:hover {
+      color: var(--text-main);
+    }
+
+    /* Content Layout */
+    .legal-content-wrap {
+      padding: 4rem 0 6rem;
+    }
+
+    .legal-header {
+      margin-bottom: 3.5rem;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 2rem;
+    }
+
+    .legal-kicker {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--mint-light);
+      margin-bottom: 0.5rem;
+    }
+
+    .legal-title {
+      font-size: clamp(2rem, 3.5vw, 2.75rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text-heading);
+      margin-bottom: 0.75rem;
+    }
+
+    .legal-meta {
+      font-size: 0.875rem;
+      color: var(--text-dim);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .meta-tag {
+      color: var(--mint-light);
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+    }
+
+    /* Legal Sections */
+    .legal-article {
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+    }
+
+    .legal-section {
+      background: var(--surface-dark);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 2.25rem;
+    }
+
+    .section-num {
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--purple-light);
+      margin-bottom: 0.35rem;
+    }
+
+    .legal-section-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-heading);
+      letter-spacing: -0.015em;
+      margin-bottom: 1.25rem;
+    }
+
+    .legal-section p {
+      margin-bottom: 1rem;
+      color: var(--text-muted);
+      font-size: 0.9625rem;
+    }
+
+    .legal-section p:last-child {
+      margin-bottom: 0;
+    }
+
+    .legal-list {
+      margin: 1rem 0 1.25rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .legal-list li {
+      color: var(--text-muted);
+      font-size: 0.9375rem;
+    }
+
+    .legal-list li strong {
+      color: var(--text-heading);
+    }
+
+    .highlight-card {
+      background: var(--surface-raised);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      margin-top: 1.25rem;
+      font-size: 0.875rem;
+      color: #E2E8F0;
+    }
+
+    .highlight-card strong {
+      color: var(--mint-light);
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    .token-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 1.25rem;
+    }
+
+    .token-item {
+      background: var(--surface-raised);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 1rem;
+      font-size: 0.875rem;
+    }
+
+    .token-item-title {
+      font-weight: 600;
+      color: var(--text-heading);
+      margin-bottom: 0.35rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .token-item-desc {
+      color: var(--text-dim);
+      font-size: 0.8125rem;
+      line-height: 1.5;
+    }
+
+    /* Footer */
+    .site-footer {
+      margin-top: auto;
+      border-top: 1px solid var(--border-subtle);
+      background: #080D1A;
+      padding: 3rem 0;
+      font-size: 0.875rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      color: var(--text-dim);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .footer-links a:hover {
+      color: var(--text-main);
+    }
+
+    @media (max-width: 640px) {
+      .footer-inner {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+      }
+      .token-grid {
+        grid-template-columns: 1fr;
+      }
+      .legal-section {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand-zone" aria-label="FeedRelay Home">
+        <div class="logo-glyph">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="16 3 21 3 21 8"></polyline>
+            <line x1="4" y1="20" x2="21" y2="3"></line>
+            <polyline points="21 16 21 21 16 21"></polyline>
+            <line x1="15" y1="15" x2="21" y2="21"></line>
+            <line x1="4" y1="4" x2="9" y2="9"></line>
+          </svg>
+        </div>
+        <span class="brand-title">Feed<span>Relay</span></span>
+      </a>
+
+      <nav aria-label="Breadcrumb Navigation">
+        <ul class="nav-links">
+          <li>
+            <a href="index.html" class="nav-back-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+              </svg>
+              Back to Overview
+            </a>
+          </li>
+          <li><a href="terms.html" class="nav-link">Terms of Service</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="legal-content-wrap">
+    <div class="container">
+      <header class="legal-header">
+        <p class="legal-kicker">Data Governance &amp; Privacy Audit</p>
+        <h1 class="legal-title">Privacy Policy</h1>
+        <div class="legal-meta">
+          <span>Last Updated: October 11, 2026</span>
+          <span>&middot;</span>
+          <span>Version 2.4</span>
+          <span>&middot;</span>
+          <span class="meta-tag">Compliance: Platform Audit Certified</span>
+        </div>
+      </header>
+
+      <article class="legal-article">
+        <!-- Section 1 -->
+        <section class="legal-section">
+          <p class="section-num">SECTION 01</p>
+          <h2 class="legal-section-title">Introduction &amp; Privacy Principles</h2>
+          <p>
+            <strong>FeedRelay</strong> ("we," "our," or "the Platform") provides internal social media publishing and queue automation infrastructure. We recognize the paramount importance of data security and data privacy when interfacing with enterprise social channels.
+          </p>
+          <p>
+            We operate under a strict <strong>Data Minimization and Zero-Commercialization</strong> policy: FeedRelay collects only the technical parameters strictly necessary to authenticate with social platform APIs and transmit scheduled short-form video assets. We do not sell data, do not profile consumers, and do not maintain permanent video repositories.
+          </p>
+        </section>
+
+        <!-- Section 2 -->
+        <section class="legal-section">
+          <p class="section-num">SECTION 02</p>
+          <h2 class="legal-section-title">Data We Collect &amp; Process</h2>
+          <p>
+            FeedRelay processes the following limited categories of data exclusively during authorized publishing operations:
+          </p>
+          <ul class="legal-list">
+            <li><strong>Channel Authentication Profiles:</strong> Connected channel public usernames, platform account IDs, and avatar thumbnail URLs returned during standard OAuth handshakes, strictly for display in the operator's internal scheduling queue.</li>
+            <li><strong>OAuth Access &amp; Refresh Tokens:</strong> Scoped credential tokens granted during official OAuth 2.0 flows, utilized exclusively to authenticate upload requests with destination APIs.</li>
+            <li><strong>Media Upload Assets:</strong> Video binaries (.mp4, .mov), captions, titles, hashtags, and scheduling timestamps staged by the operator for automated dispatch.</li>
+            <li><strong>Transmission Diagnostic Metadata:</strong> Technical HTTP logs including request timestamps, endpoint status codes, retry counts, and API response IDs to verify delivery status.</li>
+          </ul>
+
+          <div class="highlight-card">
+            <strong>What We Never Collect:</strong>
+            FeedRelay does not harvest personal contact lists, user comments, direct messages, consumer viewing habits, financial details, or device biometric data.
+          </div>
+        </section>
+
+        <!-- Section 3 -->
+        <section id="tokens" class="legal-section">
+          <p class="section-num">SECTION 03</p>
+          <h2 class="legal-section-title">OAuth Token Storage &amp; Cryptographic Security</h2>
+          <p>
+            In full compliance with developer platform audit guidelines (including TikTok Developer Security Guidelines, Google API Services User Data Policy, and Meta Platform Policies), FeedRelay enforces rigorous credential protection protocols:
+          </p>
+
+          <div class="token-grid">
+            <div class="token-item">
+              <div class="token-item-title">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--mint-light)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+                AES-256 Encryption at Rest
+              </div>
+              <p class="token-item-desc">
+                All OAuth tokens and refresh keys are encrypted using AES-256 with keys isolated in environment-restricted keyrings.
+              </p>
+            </div>
+
+            <div class="token-item">
+              <div class="token-item-title">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--mint-light)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"></path>
+                </svg>
+                Ephemeral In-Memory Decryption
+              </div>
+              <p class="token-item-desc">
+                Tokens are decrypted into memory only during the active HTTP dispatch window and are immediately unreferenced.
+              </p>
+            </div>
+
+            <div class="token-item">
+              <div class="token-item-title">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--mint-light)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="23 4 23 10 17 10"></polyline>
+                  <polyline points="1 20 1 14 7 14"></polyline>
+                  <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                </svg>
+                Automated Token Rotation
+              </div>
+              <p class="token-item-desc">
+                Background daemons handle refresh cycles seamlessly. Obsolete or expired tokens are immediately sanitized and overwritten.
+              </p>
+            </div>
+
+            <div class="token-item">
+              <div class="token-item-title">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--mint-light)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
+                </svg>
+                Zero Frontend Exposure
+              </div>
+              <p class="token-item-desc">
+                Tokens are never returned to client-side browser bundles, local storage, or public log streams.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 4 -->
+        <section class="legal-section">
+          <p class="section-num">SECTION 04</p>
+          <h2 class="legal-section-title">Data Retention Policies &amp; Ephemeral Buffering</h2>
+          <p>
+            FeedRelay enforces automated, strict expiration intervals for all staged assets and logs:
+          </p>
+          <ul class="legal-list">
+            <li><strong>Video Asset Ephemeral Staging (24 to 48 Hours):</strong> Queued media binaries are staged in temporary scratch buffers solely to facilitate chunked resumable transfers. Upon receipt of delivery confirmation from the destination social API (or after 48 hours in the event of an unrecoverable failure), the staged video binary is permanently purged from storage.</li>
+            <li><strong>Diagnostic Log Purge (30-Day Limit):</strong> API transaction records and error logs are retained for a rolling maximum period of 30 days solely to verify delivery integrity and diagnose potential platform rate-limiting events, after which they are automatically purged.</li>
+            <li><strong>Account De-Provisioning:</strong> When an account is disconnected from FeedRelay, all stored channel identifiers and encrypted token entries are wiped immediately.</li>
+          </ul>
+        </section>
+
+        <!-- Section 5 -->
+        <section class="legal-section">
+          <p class="section-num">SECTION 05</p>
+          <h2 class="legal-section-title">Third-Party Platform Disclosures &amp; No-Sale Rule</h2>
+          <p>
+            FeedRelay dispatches scheduled media solely to the official developer APIs of authorized third-party platforms selected by the operator:
+          </p>
+          <ul class="legal-list">
+            <li><strong>TikTok:</strong> Transmissions via TikTok Commercial Content API and TikTok for Developers.</li>
+            <li><strong>YouTube:</strong> Transmissions via YouTube Data API v3 and Google Cloud Services.</li>
+            <li><strong>Meta / Instagram:</strong> Transmissions via Instagram Graph API and Meta Content Publishing APIs.</li>
+          </ul>
+
+          <div class="highlight-card">
+            <strong>Absolute Prohibition on Commercial Sale &amp; AI Ingestion:</strong>
+            Under no circumstances does FeedRelay sell, lease, exchange, or transfer user account information or video content to third-party data brokers, ad networks, or commercial analytics firms. We do not use customer videos, metadata, or creative assets to train artificial intelligence or machine learning models.
+          </div>
+        </section>
+
+        <!-- Section 6 -->
+        <section class="legal-section">
+          <p class="section-num">SECTION 06</p>
+          <h2 class="legal-section-title">Data Subject Rights &amp; Revocation Mechanisms</h2>
+          <p>
+            Operators retain complete sovereignty over their connected profiles and authorization credentials:
+          </p>
+          <ul class="legal-list">
+            <li><strong>One-Click In-App Revocation:</strong> You can disconnect any social account at any time in the FeedRelay management view, triggering instantaneous deletion of all encrypted tokens.</li>
+            <li>
+              <strong>Direct Platform Permission Revocation:</strong> You can revoke FeedRelay's access directly at the platform level at any moment:
+              <ul style="margin: 0.5rem 0 0 1rem; list-style-type: circle;">
+                <li>TikTok: Settings &gt; Security &gt; Manage App Permissions</li>
+                <li>Google / YouTube: <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener noreferrer" style="color: var(--purple-light); text-decoration: underline;">Google Account Security &gt; Third-party apps with account access</a></li>
+                <li>Meta / Instagram: Settings &gt; Security &gt; Apps and Websites</li>
+              </ul>
+            </li>
+            <li><strong>Data Erasure Requests:</strong> To request an expedited manual purge of historical dispatch logs, operators may contact the Data Governance team.</li>
+          </ul>
+        </section>
+
+        <!-- Section 7 -->
+        <section class="legal-section">
+          <p class="section-num">SECTION 07</p>
+          <h2 class="legal-section-title">Security Safeguards</h2>
+          <p>
+            We implement industry-grade technical and organizational safeguards:
+          </p>
+          <ul class="legal-list">
+            <li><strong>Transport Encryption:</strong> All communications between clients, FeedRelay, and external social media APIs require TLS 1.3 encryption.</li>
+            <li><strong>Role-Based Access Control:</strong> Strict least-privilege access rules ensure only designated automation daemons can read temporary token vaults.</li>
+            <li><strong>Vulnerability Management:</strong> Continuous automated package auditing to eliminate CVE vulnerabilities across dependencies.</li>
+          </ul>
+        </section>
+
+        <!-- Section 8 -->
+        <section class="legal-section">
+          <p class="section-num">SECTION 08</p>
+          <h2 class="legal-section-title">Data Protection Officer Contact</h2>
+          <p>
+            If you have questions regarding this Privacy Policy, OAuth key safeguards, or platform audit compliance, please reach out to our team:
+          </p>
+          <p style="font-family: var(--font-mono); color: var(--mint-light); margin-top: 0.5rem;">
+            privacy@feedrelay.internal
+          </p>
+        </section>
+      </article>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p>&copy; 2026 FeedRelay. Internal distribution tool. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="index.html">Overview</a>
+        <a href="terms.html">Terms of Service</a>
+        <a href="privacy.html">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
